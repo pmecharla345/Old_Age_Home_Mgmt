@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<title></title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="./oldAgeHomeSystem.js"></script>
+<style>
+    .card {
+        box-shadow: 1px 1px 14px 4px rgb(0 0 0 / 10%);
+        background-color: #fafafa;
+        border-radius: 10px;
+    }
+
+    .value-item-heading {
+        color: #96d500;
+        font-size: 24px;
+        padding-left: 16px;
+    }
+
+    .card-body {
+        min-height: 400px;
+    }
+
+</style>
+
+<body ng-app="myApp" ng-controller="myCtrl" ng-init="onload();"
+    style="background-color: aliceblue;font-family: fangsong;">
+    <nav class="navbar navbar-expand-lg navbar-dark"
+        style="background-image: linear-gradient(to right,#17a2b8, rgba(255,0,0,0)); background-color: #121210;">
+        <img src="./logo.webp" alt="" style="height: 54px;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item menuCls active" menuType="ABOUT" id="aboutTabId">
+                    <a class="nav-link" href="#" ng-click="switchMenu('ABOUT','aboutTabId')">About</a>
+                </li>
+                <li class="nav-item menuCls" menuType="APPLY_LEAVE" id="applyLeaveTabId" ng-show="admin == 'JOINER'">
+                    <a class="nav-link" href="#" ng-click="switchMenu('APPLY_LEAVE','applyLeaveTabId')">Services</a>
+                </li>
+                <li class="nav-item menuCls" id="myleaveTabId" menuType="MY_LEAVES"
+                    ng-show="admin == 'JOINER' || admin == 'ADMIN'">
+                    <a class="nav-link" href="#" ng-click="switchMenu('MY_LEAVES','myleaveTabId')">History</a>
+                </li>
+            </ul>
+            <span class="navbar-text" style="cursor: pointer;">
+                <i class="fa fa-sign-out" style="font-size: 20px;" ng-click="logout()">Logout</i>
+            </span>
+        </div>
+    </nav>
+    <!-- About -->
+    <div class="col-md-12 p-0" id="aboutDivId">
+        <div class="card" style="padding: 10px;">
+            <h4 style="color:#b0b04e;" class="long-large-text top">As a core partner in your community, we’re
+                driving positive outcomes from a place of deep compassion and expertise.Our dedicated team
+                provides an integrated approach to the most impactful services in senior living.</h4>
+        </div>
+
+        <div class="row m-2">
+            <div class="col-sm-3 mb-3">
+                <div class="card">
+                    <h4 class="value-item-heading">Therapy</h4>
+                    <div class="card-body">
+                        <p class="value-content">Our on-site therapy services are fully integrated, part of a daily
+                            routine, and personalized
+                            for your residents by our expert team. We provide physical, occupational, and speech therapy
+                            in addition to robust
+                            wellness programs. Our dedicated team of therapists are here to help your residents thrive.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 mb-3">
+                <div class="card">
+                    <h4 class="value-item-heading">Diagnostics</h4>
+                    <div class="card-body">
+                        <p class="value-content">With full-service diagnostics, we partner with your team and healthcare
+                            providers so residents can be diagnosed and
+                            treated quickly. Our on-site diagnostic team members are a friendly face for residents. With
+                            lab results provided within
+                            24-48 hours, residents get the treatment they need faster than traditionally possible, at no
+                            cost to the community.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 mb-3">
+                <div class="card">
+                    <h4 class="value-item-heading">Pharmacy</h4>
+                    <div class="card-body">
+                        <p class="value-content">We offer exceptional and personalized pharmaceutical services to
+                            assisted living and memory care residents. Through
+                            partnership, we provide the highest level of care to your residents. We work hand-in-hand
+                            on-site with your team to
+                            solve all of your pharmacy needs with unsurpassed clinical oversight.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 mb-3">
+                <div class="card">
+                    <h4 class="value-item-heading">Nurse Practitioner</h4>
+                    <div class="card-body">
+                        <p class="value-content">Our nurse practitioners provide medical oversight in your community to
+                            help prevent and identify potential illnesses –
+                            reducing unnecessary hospitalizations. Our nurse practitioners coordinate resident care by
+                            creating individualized care
+                            plans that meet the goals of residents and families. They also work hand-in-hand with
+                            therapy, diagnostics, and pharmacy
+                            to provide a fully integrated model that saves staff time.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <img src="./img.jpg" alt="" style="width: 100%">
+        </div>
+    </div>
+    <!--History-->
+    <div class="col-md-12 p-0" id="myapplyLeaveDivId">
+
+        <div class="col-md-12 p-0">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Room Rent</th>
+                        <th scope="col">Food</th>
+                        <th scope="col">Laundry</th>
+                        <th scope="col">Health Care</th>
+                        <th scope="col">Date</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="data in viewUserData">
+                        <td scope="col">{{data.fullName}}</td>
+                        <td scope="col">{{data.roomRent}}</td>
+                        <td scope="col">{{data.food}}</td>
+                        <td scope="col">{{data.laundry}}</td>
+                        <td scope="col">{{data.healthcare}}</td>
+                        <td scope="col">{{data.date}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--  Services -->
+    <div class="col-md-12 d-flex justify-content-center" id="addPickDropDivId" ng-show="isIteamTab">
+        <form>
+            <div class="form-row col-md-12">
+                <div class="col-md-12 mb-3">
+                    <label>Full Name</label>
+                    <input type="text" class="form-control" ng-model="userData.fullName" value="">
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label>Room Rent</label>
+                    <input type="Number" class="form-control" ng-model="userData.roomRent" value="">
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label>Food</label>
+                    <input type="Number" class="form-control" ng-model="userData.food" value="">
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label>Laundry</label>
+                    <input type="Number" class="form-control" ng-model="userData.laundry" value="">
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label>Health Care Payment</label>
+                    <input type="Number" class="form-control" ng-model="userData.healthcare" value="">
+                </div>
+            </div>
+            <div class="col-md-12" style="z-index: 99999;">
+                <button type="button" class="border btn btn-info float-right mr-1 mb-2"
+                    ng-click="payment()">Payment</button>
+                <button type="reset" class="border btn btn-light float-right mr-2">Clear</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
